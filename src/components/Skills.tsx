@@ -1,24 +1,23 @@
 import type { SkillGroup } from '../profile'
+import { SECTIONS } from '../sections'
+import './Skills.css'
 
 interface SkillsProps {
   groups: SkillGroup[]
 }
 
 function Skills({ groups }: SkillsProps) {
+  const { id, title } = SECTIONS.stack
   return (
-    <section className="section" aria-labelledby="skills-title">
-      <h2 id="skills-title" className="section__title">기술 스택</h2>
+    <section id={id} className="section" aria-labelledby={`${id}-title`}>
+      <h2 id={`${id}-title`} className="section__title">
+        {title}
+      </h2>
       <dl className="skills">
         {groups.map((group) => (
-          <div key={group.category} className="skills__group">
+          <div key={group.category} className="skills__row">
             <dt className="skills__category">{group.category}</dt>
-            <dd className="skills__items">
-              <ul className="tags">
-                {group.items.map((item) => (
-                  <li key={item} className="tag">{item}</li>
-                ))}
-              </ul>
-            </dd>
+            <dd className="skills__items">{group.items.join(', ')}</dd>
           </div>
         ))}
       </dl>

@@ -1,0 +1,28 @@
+/* 기술 스택: 위 2px 실선, 행마다 약한 1px 선. 분류 | 항목(명조) */
+.skills {
+  display: flex;
+  flex-direction: column;
+  border-top: var(--rule-thick) solid var(--line);
+}
+
+.skills__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-8);
+  padding: var(--space-5) 0;
+  border-bottom: var(--rule) solid var(--line-soft);
+}
+
+.skills__category {
+  flex: 0 0 var(--dt-width);
+  font-size: var(--fs-body);
+  font-weight: var(--w-bold);
+  letter-spacing: var(--tracking-meta);
+}
+
+.skills__items {
+  flex: 1 1 var(--dd-basis);
+  min-width: 0;
+  font-family: var(--serif);
+  font-size: var(--fs-serif-body);
+}

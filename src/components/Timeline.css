@@ -1,0 +1,59 @@
+/* 학습·경력: 왼쪽 1px 세로선 + 점. 첫 항목만 accent 채움 점, 나머지는 빈 원 */
+.timeline {
+  gap: var(--space-7);
+}
+
+.timeline__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-9);
+  padding-left: var(--tl-indent);
+  border-left: var(--rule) solid var(--line);
+}
+
+.timeline__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* 점의 중심을 세로선 중심에 맞춤 */
+.timeline__dot {
+  position: absolute;
+  top: var(--tl-dot-top);
+  left: calc(-1 * (var(--tl-indent) + var(--rule) / 2 + var(--tl-dot) / 2));
+  width: var(--tl-dot);
+  height: var(--tl-dot);
+  border-radius: 50%;
+  background: var(--bg);
+  border: var(--rule-thick) solid var(--line);
+}
+
+.timeline__item--current .timeline__dot {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.timeline__period {
+  font-size: var(--fs-meta);
+  font-weight: var(--w-bold);
+  letter-spacing: var(--tracking-meta);
+  color: var(--text-soft);
+}
+
+.timeline__item--current .timeline__period {
+  color: var(--accent);
+}
+
+.timeline__title {
+  font-family: var(--serif);
+  font-size: var(--fs-h3);
+  font-weight: var(--w-semibold);
+  line-height: var(--leading-title);
+}
+
+.timeline__description {
+  font-size: var(--fs-desc);
+  color: var(--text-desc);
+}

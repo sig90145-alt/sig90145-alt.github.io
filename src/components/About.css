@@ -1,0 +1,18 @@
+/* 소개: 명조 본문 + 위아래 1px 실선 인용구 */
+.about__text {
+  font-family: var(--serif);
+  font-size: var(--fs-serif-body);
+  line-height: var(--leading-serif);
+}
+
+.about__quote {
+  margin-top: var(--space-2);
+  padding: var(--space-6) 0;
+  border-top: var(--rule) solid var(--line);
+  border-bottom: var(--rule) solid var(--line);
+  font-family: var(--serif);
+  font-size: var(--fs-quote);
+  font-weight: var(--w-semibold);
+  line-height: var(--leading-quote);
+  color: var(--accent);
+}
