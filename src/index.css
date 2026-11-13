@@ -1,34 +1,97 @@
+/* =========================================================
+   웜 카페 테마 (DESIGN.md 참고)
+   - 웜 크림 캔버스 + 4단계 그린 + 87% 블랙 텍스트
+   - 색 블록 리듬: 크림 헤더 → 흰 카드 → 짙은 그린 밴드
+   - 색·글꼴·반경·그림자·간격은 전부 :root 변수로 관리
+   - 시스템 폰트만 사용, 다크 모드는 생략 (light 고정)
+   ========================================================= */
 :root {
-  --text: #4b4652;
-  --text-h: #111014;
-  --muted: #7a7482;
-  --bg: #ffffff;
-  --surface: #f6f5f8;
-  --border: #e5e4e7;
-  --accent: #7c3aed;
-  --accent-bg: rgba(124, 58, 237, 0.08);
+  /* 그린 계열 */
+  --green: #006241; /* 제목·브랜드 신호 */
+  --green-accent: #00754a; /* 강조·포인트 */
+  --green-house: #1e3932; /* 짙은 밴드 배경 */
+  --green-uplift: #2b5148; /* 장식용 중간 톤 */
+  --green-light: #d4e9e2; /* 옅은 민트 워시 */
 
-  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  /* 표면 */
+  --canvas: #f2f0eb; /* 웜 크림 페이지 캔버스 */
+  --ceramic: #edebe9;
+  --card: #ffffff;
 
-  font: 17px/1.7 var(--sans);
-  color-scheme: light dark;
+  /* 텍스트 */
+  --text: rgba(0, 0, 0, 0.87);
+  --text-soft: rgba(0, 0, 0, 0.58);
+  --text-on-dark: #ffffff;
+  --text-on-dark-soft: rgba(255, 255, 255, 0.7);
+
+  /* 어두운 면 위 오버레이 */
+  --on-dark-line: rgba(255, 255, 255, 0.7);
+  --on-dark-fill: rgba(255, 255, 255, 0.1);
+
+  /* 글꼴 (시스템 폰트 스택만) */
+  --sans: system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial,
+    'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+
+  /* 자간 */
+  --tracking: -0.01em;
+  --tracking-tight: -0.16px;
+  --tracking-loose: 0.1em;
+
+  /* 줄 간격 */
+  --leading: 1.5;
+  --leading-body-lg: 1.75;
+  --leading-compact: 1.2;
+
+  /* 굵기 */
+  --w-regular: 400;
+  --w-semibold: 600;
+  --w-bold: 700;
+
+  /* 글자 크기 */
+  --fs-display: 56px;
+  --fs-title: 24px;
+  --fs-body-lg: 19px;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-micro: 13px;
+
+  /* 반경 */
+  --radius-card: 12px;
+  --radius-pill: 50px;
+
+  /* 그림자: 낮은 알파를 여러 겹 */
+  --shadow-card: 0 0 0.5px rgba(0, 0, 0, 0.14), 0 1px 1px rgba(0, 0, 0, 0.24);
+  --shadow-band: 0 0 6px rgba(0, 0, 0, 0.24), 0 8px 12px rgba(0, 0, 0, 0.14);
+
+  /* 간격 */
+  --space-1: 4px;
+  --space-tag-y: 6px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-mobile: 20px;
+  --space-5: 32px;
+  --space-6: 40px;
+  --space-7: 48px;
+  --space-9: 64px;
+  --gutter: var(--space-6);
+  --content-width: 760px;
+  --category-width: 140px;
+  --border-w: 1px;
+
+  /* 모션 */
+  --ease: 0.2s ease;
+
+  font-family: var(--sans);
+  font-size: var(--fs-body);
+  font-weight: var(--w-regular);
+  line-height: var(--leading);
+  letter-spacing: var(--tracking);
+  color-scheme: light;
   color: var(--text);
-  background: var(--bg);
+  background: var(--canvas);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #c4c2cb;
-    --text-h: #f3f3f6;
-    --muted: #8e8a98;
-    --bg: #16161b;
-    --surface: #1f1f26;
-    --border: #2e2e38;
-    --accent: #b794f6;
-    --accent-bg: rgba(183, 148, 246, 0.12);
-  }
 }
 
 *,
@@ -37,9 +100,14 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
-  background: var(--bg);
+  background: var(--canvas);
 }
 
 h1,
@@ -56,108 +124,254 @@ ul {
   list-style: none;
 }
 
-/* 레이아웃 */
-.page {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 72px 24px 96px;
-  display: flex;
-  flex-direction: column;
-  gap: 56px;
+::selection {
+  background: var(--green-light);
+  color: var(--green-house);
 }
 
-/* 헤더: 이름 + 한 줄 소개 */
+/* 레이아웃 */
+.page {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--space-9) var(--gutter) var(--space-9);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* 헤더: 크림 캔버스 위 히어로 */
+.header {
+  padding: var(--space-4) 0 var(--space-3);
+}
+
+.header::before {
+  content: '';
+  display: block;
+  width: var(--space-7);
+  height: var(--space-1);
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--green-accent);
+}
+
 .header__name {
-  font-size: 44px;
-  line-height: 1.2;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--text-h);
+  font-size: var(--fs-display);
+  font-weight: var(--w-bold);
+  line-height: var(--leading-compact);
+  letter-spacing: var(--tracking);
+  color: var(--green);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 .header__tagline {
-  margin-top: 12px;
-  font-size: 19px;
-  color: var(--muted);
+  margin-top: var(--space-3);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--w-regular);
+  line-height: var(--leading-body-lg);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-soft);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
-/* 공통 구역 */
+/* 공통 구역: 흰 카드 */
+.section {
+  padding: var(--space-6);
+  background: var(--card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
 .section__title {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-4);
+  font-size: var(--fs-title);
+  font-weight: var(--w-semibold);
+  line-height: var(--leading-compact);
+  letter-spacing: var(--tracking-tight);
+  color: var(--green);
+}
+
+/* 짝수 구역: 짙은 그린 밴드 */
+.section:nth-of-type(even) {
+  background: var(--green-house);
+  color: var(--text-on-dark);
+  box-shadow: var(--shadow-band);
+}
+
+.section:nth-of-type(even) .section__title {
+  color: var(--text-on-dark);
 }
 
 /* 자기소개 */
 .about {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-3);
   word-break: keep-all;
   overflow-wrap: break-word;
+}
+
+.about p:first-child {
+  font-size: var(--fs-body-lg);
+  font-weight: var(--w-semibold);
+  line-height: var(--leading-body-lg);
+  letter-spacing: var(--tracking-tight);
 }
 
 /* 기술 스택 */
 .skills {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-4);
 }
 
 .skills__group {
   display: grid;
-  grid-template-columns: 120px 1fr;
-  align-items: baseline;
-  gap: 16px;
+  grid-template-columns: var(--category-width) 1fr;
+  align-items: start;
+  gap: var(--space-3);
 }
 
 .skills__category {
-  font-weight: 600;
-  color: var(--text-h);
+  padding-top: var(--space-1);
+  font-size: var(--fs-micro);
+  font-weight: var(--w-bold);
+  line-height: var(--leading);
+  letter-spacing: var(--tracking-loose);
+  text-transform: uppercase;
+  color: var(--text-soft);
+  word-break: keep-all;
+}
+
+.section:nth-of-type(even) .skills__category {
+  color: var(--text-on-dark-soft);
+}
+
+.skills__items {
+  min-width: 0;
 }
 
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
+/* 태그: pill */
 .tag {
-  font-size: 14px;
-  line-height: 1.4;
-  padding: 6px 12px;
-  border-radius: 999px;
-  color: var(--text-h);
-  background: var(--surface);
-  border: 1px solid var(--border);
+  padding: var(--space-tag-y) var(--space-3);
+  font-size: var(--fs-small);
+  font-weight: var(--w-semibold);
+  line-height: var(--leading-compact);
+  letter-spacing: var(--tracking);
+  color: var(--green-accent);
+  background: var(--card);
+  border: var(--border-w) solid var(--green-accent);
+  border-radius: var(--radius-pill);
+  cursor: default;
+  transition:
+    background-color var(--ease),
+    color var(--ease);
+  overflow-wrap: anywhere;
+}
+
+.tag:hover {
+  color: var(--text-on-dark);
+  background: var(--green-accent);
+}
+
+.section:nth-of-type(even) .tag {
+  color: var(--text-on-dark);
+  background: var(--on-dark-fill);
+  border-color: var(--on-dark-line);
+}
+
+.section:nth-of-type(even) .tag:hover {
+  color: var(--green-house);
+  background: var(--card);
+  border-color: var(--card);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tag {
+    transition: none;
+  }
 }
 
 /* 모바일 */
 @media (max-width: 600px) {
   :root {
-    font-size: 16px;
+    --gutter: var(--space-3);
+    --fs-display: 38px;
+    --fs-title: 22px;
+    --fs-body-lg: 17px;
   }
 
   .page {
-    padding: 48px 16px 64px;
-    gap: 44px;
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-7);
+    gap: var(--space-4);
   }
 
-  .header__name {
-    font-size: 34px;
+  .header {
+    padding: var(--space-2) 0 0;
   }
 
-  .header__tagline {
-    font-size: 17px;
+  .header::before {
+    margin-bottom: var(--space-3);
+  }
+
+  .section {
+    padding: var(--space-4) var(--space-mobile);
+  }
+
+  .section__title {
+    margin-bottom: var(--space-3);
+  }
+
+  .skills {
+    gap: var(--space-mobile);
   }
 
   .skills__group {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: var(--space-2);
   }
+
+  .skills__category {
+    padding-top: 0;
+  }
+}
+
+/* =========================================================
+   다크 모드: 변수 재정의만 (개별 클래스 규칙은 그대로)
+   - 짙은 그린 기운의 캔버스/카드 + 밝게 올린 그린 신호색
+   - 짙은 밴드(--green-house)는 카드보다 한 단계 밝은 중간 그린으로
+     띄워서 흰 텍스트·카드 위 hover 텍스트 모두 읽히게 함
+   ========================================================= */
+:root[data-theme='dark'] {
+  /* 그린 계열 */
+  --green: #7fcfaa;
+  --green-accent: #33966f;
+  --green-house: #2f7a5f;
+  --green-uplift: #24453c;
+  --green-light: #c3e4d6;
+
+  /* 표면 */
+  --canvas: #0d1210;
+  --ceramic: #141c19;
+  --card: #18201d;
+
+  /* 텍스트 */
+  --text: rgba(255, 255, 255, 0.87);
+  --text-soft: rgba(255, 255, 255, 0.62);
+  --text-on-dark: #ffffff;
+  --text-on-dark-soft: rgba(255, 255, 255, 0.85);
+
+  /* 그림자: 어두운 바탕에선 옅은 테두리 + 진한 그림자 */
+  --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-band: 0 0 6px rgba(0, 0, 0, 0.4), 0 8px 12px rgba(0, 0, 0, 0.3);
+
+  color-scheme: dark;
 }

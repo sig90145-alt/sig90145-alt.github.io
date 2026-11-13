@@ -6,11 +6,25 @@ export interface SkillGroup {
   items: string[]
 }
 
+export interface Project {
+  title: string
+  description: string
+  tags: string[]
+  link?: string // 없으면 생략
+}
+
+export interface ContactLink {
+  label: string // 화면에 보이는 이름 (예: 'GitHub')
+  url: string // 'https://...' 또는 'mailto:...'
+}
+
 export interface Profile {
   name: string
   tagline: string
   about: string[] // 문단 하나당 항목 하나
   skills: SkillGroup[]
+  projects: Project[]
+  links: ContactLink[]
 }
 
 export const profile: Profile = {
@@ -30,5 +44,25 @@ export const profile: Profile = {
     { category: 'Language', items: ['C', 'Java', 'Python', 'JavaScript'] },
     { category: 'Web', items: ['HTML', 'CSS', 'React'] },
     { category: 'Tools', items: ['Git', 'GitHub', 'VS Code'] },
+  ],
+
+  // TODO: 실제 프로젝트·활동으로 바꾸기 (1~3개 권장)
+  projects: [
+    {
+      title: '자기소개 페이지',
+      description: 'React와 TypeScript로 만든 한 페이지 자기소개 사이트입니다. 내용은 한 파일에 모으고, 화면은 구역별 컴포넌트로 나눠 구성했습니다.',
+      tags: ['React', 'TypeScript', 'Vite', 'CSS'],
+    },
+    {
+      title: '프로젝트 이름',
+      description: '어떤 문제를 풀었는지, 내가 맡은 역할은 무엇이었는지 한두 문장으로 적어 주세요.',
+      tags: ['Java'],
+    },
+  ],
+
+  // TODO: 실제 GitHub 주소와 이메일로 바꾸기
+  links: [
+    { label: 'GitHub', url: 'https://github.com/' },
+    { label: 'Email', url: 'mailto:example@example.com' },
   ],
 }
