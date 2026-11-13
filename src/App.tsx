@@ -1,8 +1,16 @@
-import Button from './components/Button'
+import { profile } from './profile'
+import Header from './components/Header'
+import About from './components/About'
+import Skills from './components/Skills'
 
 function App() {
-  return <div>안녕 리액트 <Button /> <Button /> </div>;
-  
+  return (
+    <main className="page">
+      <Header name={profile.name} tagline={profile.tagline} />
+      <About paragraphs={profile.about} />
+      <Skills groups={profile.skills} />
+    </main>
+  )
 }
 
 export default App
