@@ -1,0 +1,50 @@
+/* 히어로: 가운데 정렬, 아주 큰 명조 이름, 아래 4px double 구분선 */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-7);
+  padding: var(--hero-pad) 0;
+  text-align: center;
+  border-bottom: var(--rule-double) double var(--line);
+}
+
+.hero__label {
+  font-size: var(--fs-meta);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--tracking-label);
+  color: var(--accent);
+}
+
+.hero__name {
+  max-width: 100%;
+  font-family: var(--serif);
+  font-size: var(--fs-display);
+  font-weight: var(--w-black);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  /* 자간이 오른쪽에만 붙으므로 같은 만큼 왼쪽을 밀어 시각적 중앙 맞춤 */
+  padding-left: var(--tracking-display);
+  overflow-wrap: anywhere;
+}
+
+.hero__tagline {
+  max-width: var(--lead-width);
+  font-family: var(--serif);
+  font-size: var(--fs-lead);
+  font-weight: var(--w-semibold);
+  line-height: var(--leading-lead);
+}
+
+.hero__facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-1) var(--space-5);
+  font-size: var(--fs-meta);
+  color: var(--text-soft);
+}
+
+.hero__fact-group {
+  display: contents;
+}

@@ -1,0 +1,38 @@
+/* 목차: 왼쪽 단, 한자 번호 + 명조 링크 */
+.toc {
+  flex: 1 1 var(--toc-basis);
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.toc__title {
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
+  border-bottom: var(--rule) solid var(--line);
+  font-size: var(--fs-micro);
+  font-weight: var(--w-bold);
+  letter-spacing: var(--tracking-caps);
+  color: var(--text-soft);
+}
+
+.toc__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.toc__link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: var(--touch);
+  font-family: var(--serif);
+  font-size: var(--fs-toc);
+  font-weight: var(--w-semibold);
+  text-decoration: none;
+}
+
+.toc__numeral {
+  color: var(--accent);
+}

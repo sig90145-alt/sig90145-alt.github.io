@@ -1,0 +1,33 @@
+/* 상단 바: 1px 실선 아래 PORTFOLIO / 부제 / 연락처 */
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-6);
+  padding: var(--space-5) 0;
+  border-bottom: var(--rule) solid var(--line);
+  font-size: var(--fs-small);
+  letter-spacing: var(--tracking-bar);
+}
+
+.topbar__brand {
+  font-weight: var(--w-bold);
+}
+
+.topbar__subtitle {
+  color: var(--text-soft);
+}
+
+.topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.topbar__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  font-weight: var(--w-bold);
+}

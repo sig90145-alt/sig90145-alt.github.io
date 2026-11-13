@@ -1,44 +1,47 @@
 import type { ContactLink } from '../profile'
+import { SECTIONS, isExternal } from '../sections'
 import './Contact.css'
 
 interface ContactProps {
+  message: string
   links: ContactLink[]
 }
 
-// http(s) 링크만 새 탭으로 연다. mailto 등은 같은 탭.
-const isExternal = (url: string) => /^https?:\/\//i.test(url)
+// 버튼에 보일 주소: 'mailto:' · 'https://' · 끝의 '/' 를 떼어 간단히
+const displayUrl = (url: string) =>
+  url.replace(/^mailto:/i, '').replace(/^https?:\/\//i, '').replace(/\/$/, '')
 
-function Contact({ links }: ContactProps) {
+function Contact({ message, links }: ContactProps) {
+  const { id, title } = SECTIONS.contact
   return (
-    <footer className="contact" aria-labelledby="contact-title">
-      <h2 id="contact-title" className="contact__title">
-        연락처
+    <section id={id} className="section contact" aria-labelledby={`${id}-title`}>
+      <h2 id={`${id}-title`} className="section__title">
+        {title}
       </h2>
-      <p className="contact__lead">함께 이야기 나눠요</p>
+      {message && <p className="contact__message">{message}</p>}
 
       {links.length > 0 && (
         <ul className="contact__list">
-          {links.map((link) => {
+          {links.map((link, i) => {
             const external = isExternal(link.url)
+            const shown = displayUrl(link.url)
             return (
               <li key={`${link.label}-${link.url}`} className="contact__item">
                 <a
-                  className="contact__link"
+                  className={i === 0 ? 'contact__button contact__button--primary' : 'contact__button'}
                   href={link.url}
-                  {...(external && {
-                    target: '_blank',
-                    rel: 'noopener noreferrer',
-                  })}
+                  {...(external && { target: '_blank', rel: 'noopener noreferrer' })}
                 >
                   {link.label}
-                  {external && <span className="contact__sr-only"> (새 탭에서 열림)</span>}
+                  {shown && ` · ${shown}`}
+                  {external && <span className="visually-hidden"> (새 탭에서 열림)</span>}
                 </a>
               </li>
             )
           })}
         </ul>
       )}
-    </footer>
+    </section>
   )
 }
 

@@ -1,29 +1,20 @@
-/* 다크 모드 토글: 화면 우상단 고정 원형 버튼
-   색·글꼴·반경·그림자·간격은 index.css 변수만 사용 */
+/* 다크 모드 토글: 상단 바 안의 1px 실선 사각 버튼 (매거진 톤)
+   값은 전부 index.css 의 :root 변수만 사용 */
 .theme-toggle {
-  --theme-toggle-size: var(--space-7);
-  --theme-toggle-offset: var(--space-3);
-  --theme-toggle-z: 10;
-
-  position: fixed;
-  top: var(--theme-toggle-offset);
-  right: var(--theme-toggle-offset);
-  z-index: var(--theme-toggle-z);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--theme-toggle-size);
-  height: var(--theme-toggle-size);
+  width: var(--touch);
+  height: var(--touch);
   padding: 0;
-  font-family: var(--sans);
-  font-size: var(--fs-body-lg);
-  font-weight: var(--w-bold);
-  line-height: var(--leading-compact);
-  color: var(--green);
-  background: var(--card);
-  border: var(--border-w) solid var(--green-accent);
-  border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-card);
+  font-family: var(--serif);
+  font-size: var(--fs-toc);
+  font-weight: var(--w-semibold);
+  line-height: 1;
+  color: var(--text);
+  background: transparent;
+  border: var(--rule) solid var(--line);
+  border-radius: 0;
   cursor: pointer;
   transition:
     background-color var(--ease),
@@ -31,13 +22,8 @@
 }
 
 .theme-toggle:hover {
-  color: var(--text-on-dark);
-  background: var(--green-accent);
-}
-
-.theme-toggle:focus-visible {
-  outline: calc(var(--border-w) * 2) solid var(--green-accent);
-  outline-offset: calc(var(--border-w) * 2);
+  color: var(--bg);
+  background: var(--text);
 }
 
 .theme-toggle__icon {
@@ -47,12 +33,5 @@
 @media (prefers-reduced-motion: reduce) {
   .theme-toggle {
     transition: none;
-  }
-}
-
-@media (max-width: 600px) {
-  .theme-toggle {
-    --theme-toggle-size: var(--space-6);
-    --theme-toggle-offset: var(--space-2);
   }
 }
